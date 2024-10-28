@@ -1,0 +1,13 @@
+# My Prettier Config File
+plugins:
+  - '@prettier/plugin-php'
+parser: 'php'
+phpVersion: '8.2'
+tabWidth: 4
+useTabs: false
+singleQuote: true
+trailingCommaPHP: true
+braceStyle: 'per-cs'
+printWidth: 80
+requirePragma: false
+insertPragma: false

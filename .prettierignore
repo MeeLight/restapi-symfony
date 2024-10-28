@@ -1,0 +1,12 @@
+/var
+/node_modules
+/bin
+/var
+/vendor
+bun.lockb
+Makefile
+package.json
+*.lock
+.env
+.env.*
+.editorconfig
