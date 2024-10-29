@@ -2,8 +2,16 @@
 
 # Install dependencies
 deps:
-	cls & composer install
+	composer install
 
 # Run the application
 dev:
-	cls & symfony server:start --no-tls
+	symfony server:start --no-tls
+
+# Show info of the application
+info:
+	php bin/console about
+
+# Check security of the application
+security:
+	symfony check:security
