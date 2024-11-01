@@ -1,26 +1,88 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ODM\Document(collection: 'beneficiaries')]
 class MobilePaymentBeneficiary
 {
     #[ODM\Id]
-    public ?string $id = null;
+    private ?string $id = null;
 
     #[ODM\Field]
-    public string $document;
+    #[Assert\NotBlank]
+    private string $document;
 
     #[ODM\Field]
-    public string $numberPhone;
+    #[Assert\NotBlank]
+    private string $numberPhone;
 
     #[ODM\Field]
-    public string $alias;
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3, max: 25)]
+    private string $alias;
 
     #[ODM\Field]
-    public string $bank;
+    #[Assert\NotBlank]
+    private string $bank;
+
+    #[ODM\Field]
+    private bool $status = true;
+
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
+
+    public function getDocument(): string
+    {
+        return $this->document;
+    }
+    public function setDocument(string $document): self
+    {
+        $this->document = $document;
+        return $this;
+    }
+
+    public function getNumberPhone(): string
+    {
+        return $this->numberPhone;
+    }
+    public function setNumberPhone(string $numberPhone): self
+    {
+        $this->numberPhone = $numberPhone;
+        return $this;
+    }
+
+    public function getAlias(): string
+    {
+        return $this->alias;
+    }
+    public function setAlias(string $alias): self
+    {
+        $this->alias = $alias;
+        return $this;
+    }
+
+    public function getBank(): string
+    {
+        return $this->bank;
+    }
+    public function setBank(string $bank): self
+    {
+        $this->bank = $bank;
+        return $this;
+    }
+
+    public function getStatus(): bool
+    {
+        return $this->status;
+    }
+    public function setStatus(bool $status): self
+    {
+        $this->status = $status;
+        return $this;
+    }
 }
