@@ -3,6 +3,7 @@
 /bin
 /var
 /vendor
+/.vscode
 bun.lockb
 Makefile
 package.json
