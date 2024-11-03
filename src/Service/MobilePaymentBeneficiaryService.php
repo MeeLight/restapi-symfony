@@ -21,6 +21,11 @@ class MobilePaymentBeneficiaryService implements
         $this->documentManager = $documentManager;
     }
 
+    /**
+     * Get all beneficiaries
+     * @public
+     * @return array
+     */
     public function getAll(): array
     {
         /** @var MobilePaymentBeneficiary[] */
@@ -31,9 +36,39 @@ class MobilePaymentBeneficiaryService implements
         return $documents;
     }
 
+    /**
+     * Get beneficiary by id
+     * @public
+     * @param string $id
+     * @return ?MobilePaymentBeneficiary
+     */
+    public function getById(string $id): ?MobilePaymentBeneficiary
+    {
+        /** @var ?MobilePaymentBeneficiary */
+        $document = $this->documentManager
+            ->getRepository(MobilePaymentBeneficiary::class)
+            ->findOneBy(['_id' => $id]);
+
+        return $document;
+    }
+
+    /**
+     * Create a beneficiary
+     * @param MobilePaymentBeneficiary $beneficiary
+     * @return void
+     */
     public function create(MobilePaymentBeneficiary $beneficiary): void
     {
         $this->documentManager->persist($beneficiary);
+        $this->documentManager->flush();
+    }
+
+    /**
+     * Update a beneficiary
+     * @return void
+     */
+    public function update(): void
+    {
         $this->documentManager->flush();
     }
 }
