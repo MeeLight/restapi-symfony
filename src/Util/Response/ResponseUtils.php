@@ -6,6 +6,13 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 final class ResponseUtils
 {
+    /**
+     * @public
+     * @static
+     *
+     * @param mixed $data
+     * @return JsonResponse
+     */
     public static function jsonOk(mixed $data): JsonResponse
     {
         return new JsonResponse(
@@ -19,6 +26,13 @@ final class ResponseUtils
         );
     }
 
+    /**
+     * @public
+     * @static
+     *
+     * @param mixed $data
+     * @return JsonResponse
+     */
     public static function jsonCreated(mixed $data): JsonResponse
     {
         return new JsonResponse(
@@ -32,19 +46,41 @@ final class ResponseUtils
         );
     }
 
-    public static function jsonBadRequest(array $errors): JsonResponse
+    /**
+     * @public
+     * @static
+     *
+     * @param array{message: string, errors: ?array} $errorData
+     * @return JsonResponse
+     */
+    public static function jsonBadRequest(array $errorData): JsonResponse
     {
+        if (!array_key_exists('message', $errorData)) {
+            $errorData['message'] = 'bad request';
+        }
+
+        if (!array_key_exists('errors', $errorData)) {
+            $errorData['errors'] = null;
+        }
+
         return new JsonResponse(
             [
-                'message' => 'bad request',
+                'message' => $errorData['message'],
                 'status' => 400,
-                'errors' => $errors,
+                'errors' => $errorData['errors'],
                 'data' => null,
             ],
             400,
         );
     }
 
+    /**
+     * @public
+     * @static
+     *
+     * @param string $errorMessage
+     * @return JsonResponse
+     */
     public static function jsonServerInternalError(
         string $errorMessage,
     ): JsonResponse {
