@@ -11,7 +11,6 @@ final class ResponseUtils
      * @public
      * @static
      *
-     * @param mixed $data
      * @return Response
      */
     public static function noContent(): Response
