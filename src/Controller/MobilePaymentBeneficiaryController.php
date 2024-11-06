@@ -232,4 +232,34 @@ class MobilePaymentBeneficiaryController extends AbstractController
             );
         }
     }
+
+    #[
+        Route(
+            path: '/{id}',
+            name: 'beneficiaries_deleteById',
+            methods: ['DELETE'],
+        ),
+    ]
+    public function deleteById(string $id): Response
+    {
+        try {
+            $document = $this->mobilePaymentBeneficiaryService->getById(
+                trim($id),
+            );
+
+            if (is_null($document)) {
+                return ResponseUtils::jsonBadRequest([
+                    'message' => 'Oops! Id not found!',
+                ]);
+            }
+
+            $this->mobilePaymentBeneficiaryService->delete($id);
+
+            return ResponseUtils::noContent();
+        } catch (MongoDBException $exception) {
+            return ResponseUtils::jsonServerInternalError(
+                $exception->getMessage(),
+            );
+        }
+    }
 }

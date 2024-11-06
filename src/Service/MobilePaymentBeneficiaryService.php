@@ -71,4 +71,19 @@ class MobilePaymentBeneficiaryService implements
     {
         $this->documentManager->flush();
     }
+
+    /**
+     * Delete a beneficiary
+     * @return void
+     */
+    public function delete(string $id): void
+    {
+        $this->documentManager
+            ->createQueryBuilder(MobilePaymentBeneficiary::class)
+            ->remove()
+            ->field('_id')
+            ->equals($id)
+            ->getQuery()
+            ->execute();
+    }
 }

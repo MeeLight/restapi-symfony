@@ -2,10 +2,23 @@
 
 namespace App\Util\Response;
 
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 final class ResponseUtils
 {
+    /**
+     * @public
+     * @static
+     *
+     * @param mixed $data
+     * @return Response
+     */
+    public static function noContent(): Response
+    {
+        return new Response('', Response::HTTP_NO_CONTENT);
+    }
+
     /**
      * @public
      * @static
